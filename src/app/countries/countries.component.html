@@ -1,0 +1,33 @@
+<ngx-ui-loader></ngx-ui-loader>
+<div class="container">
+  <h1 class="text-center">Countries Information</h1>
+  <div class="row">
+    <div class="col-sm-6">
+      <app-search (searchText)="findCountryByName($event)"></app-search>
+    </div>
+    <div class="col-sm-6">
+      <app-multiselect [regions]="regions" (region)=getSelectedRegion($event)></app-multiselect>
+    </div>
+  </div>
+  <table class="table table-stripped border mt-1">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Capital</th>
+        <th scope="col">Region</th>
+        <th class="text-primary" [appSort]="filteredCountries" data-order="desc" data-name="population" scope="col">
+          Population</th>
+        <th class="text-primary" [appSort]="filteredCountries" data-order="desc" data-name="area" scope="col">Area</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let country of filteredCountries">
+        <td>{{country.name}}</td>
+        <td>{{country.capital}}</td>
+        <td>{{country.region}}</td>
+        <td>{{country.population}}</td>
+        <td>{{country.area}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

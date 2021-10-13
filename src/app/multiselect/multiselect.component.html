@@ -1,0 +1,6 @@
+<mat-form-field appearance="fill">
+    <mat-label>Toppings</mat-label>
+    <mat-select (selectionChange)="emitRegions($event)" [formControl]="toppings" multiple>
+      <mat-option *ngFor="let topping of regions" [value]="topping">{{topping}}</mat-option>
+    </mat-select>
+  </mat-form-field>
