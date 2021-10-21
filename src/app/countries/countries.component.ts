@@ -38,19 +38,10 @@ export class CountriesComponent implements OnInit {
       });
   }
 
-  filterCountries(region: string[]) {
-    this.filteredCountries = [];
-    if (region.length > 0) {
-      for (var i = 0; i < region.length; i++) {
-        let tempCountries = this.countries.filter(country => country.region == region[i]);
-        for (let k = 0; k < tempCountries.length; k++) {
-          this.filteredCountries.push(tempCountries[k]);
-        }
-      }
-    } else {
-      this.filteredCountries = this.countries;
-    }
-
+  filterCountriesByRegions(region: string[]) {
+    this.filteredCountries = this.countries.filter(country => {
+      return region.some(reg => country.region === reg);
+    });
     this.collectionSize = this.filteredCountries.length;
     this.page = 1;
   }
@@ -78,7 +69,7 @@ export class CountriesComponent implements OnInit {
 
   getSelectedRegion(event: any) {
     console.log(event)
-    this.filterCountries(event);
+    this.filterCountriesByRegions(event);
   }
 
 }
