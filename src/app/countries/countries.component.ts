@@ -10,12 +10,15 @@ import { country } from '../interfaces/countries';
   styleUrls: ['./countries.component.css']
 })
 export class CountriesComponent implements OnInit {
-  
+
   countries: country[] = [];
   filteredCountries: country[] = [];
   regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+  page = 1;
+  pageSize = 10;
+  collectionSize: number;
 
-  constructor(private countryService: CountryService , private ngxService: NgxUiLoaderService) { }
+  constructor(private countryService: CountryService, private ngxService: NgxUiLoaderService) { }
 
   ngOnInit(): void {
     this.getCountries();
@@ -27,6 +30,7 @@ export class CountriesComponent implements OnInit {
       .subscribe((countries: country[]) => {
         if (countries) {
           this.countries = countries;
+          this.collectionSize = this.countries.length;
           this.filteredCountries = countries;
           console.log("countries :: ", countries);
           this.ngxService.stop();
@@ -40,16 +44,22 @@ export class CountriesComponent implements OnInit {
       for (var i = 0; i < region.length; i++) {
         let tempCountries = this.countries.filter(country => country.region == region[i]);
         for (let k = 0; k < tempCountries.length; k++) {
-          this.filteredCountries.push(tempCountries[i]);
+          this.filteredCountries.push(tempCountries[k]);
         }
       }
     } else {
       this.filteredCountries = this.countries;
     }
+
+    this.collectionSize = this.filteredCountries.length;
+    this.page = 1;
   }
 
-  findCountryByName(event:any) {
+  findCountryByName(event: any) {
     this.filteredCountries = this.filterCountriesByName(this.countries, event);
+
+    this.collectionSize = this.filteredCountries.length;
+    this.page = 1;
   }
 
 
@@ -66,7 +76,7 @@ export class CountriesComponent implements OnInit {
     })
   }
 
-  getSelectedRegion(event:any){
+  getSelectedRegion(event: any) {
     console.log(event)
     this.filterCountries(event);
   }

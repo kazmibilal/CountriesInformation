@@ -1,6 +1,35 @@
-<mat-form-field appearance="fill">
+<!-- <mat-form-field appearance="fill">
     <mat-label>Toppings</mat-label>
     <mat-select (selectionChange)="emitRegions($event)" [formControl]="toppings" multiple>
       <mat-option *ngFor="let topping of regions" [value]="topping">{{topping}}</mat-option>
     </mat-select>
+  </mat-form-field> -->
+
+
+  <mat-form-field class="example-chip-list w-100">
+    <mat-label>Regions</mat-label>
+    <mat-chip-list #chipList aria-label="Fruit selection">
+      <mat-chip
+        *ngFor="let region of regions"
+        [selectable]="selectable"
+        [removable]="removable"
+        (removed)="remove(region)">
+        {{region}}
+        <button matChipRemove *ngIf="removable">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+      <input
+        placeholder="Region..."
+        #regionInput
+        [formControl]="regionCtrl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let region of filteredRegions  | async" [value]="region">
+        {{region}}
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>

@@ -18,6 +18,10 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatIconModule} from '@angular/material/icon';
+import {NgxPaginationModule} from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +44,11 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
     MatRippleModule,
     MatInputModule,
     MatSelectModule,
-    NgxUiLoaderModule
+    NgxUiLoaderModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatIconModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

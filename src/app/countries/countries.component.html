@@ -1,15 +1,23 @@
 <ngx-ui-loader></ngx-ui-loader>
 <div class="container">
-  <h1 class="text-center">Countries Information</h1>
-  <div class="row">
-    <div class="col-sm-6">
-      <app-search (searchText)="findCountryByName($event)"></app-search>
-    </div>
-    <div class="col-sm-6">
-      <app-multiselect [regions]="regions" (region)=getSelectedRegion($event)></app-multiselect>
+  <div class="row mt-2 mb-2">
+    <div class="col-md-12">
+      <h3 class="display-5">Countries Information</h3>
     </div>
   </div>
-  <table class="table table-stripped border mt-1">
+ 
+  <div class="row">
+    <div class="col-md-12">
+      <app-search (searchText)="findCountryByName($event)"></app-search>
+    </div>
+    <div class="col-md-12">
+      <app-multiselect [allRegions]="regions" (region)=getSelectedRegion($event)></app-multiselect>
+    </div>
+  </div>
+  <div class="table-responsive">
+
+  
+  <table class="table table-striped border mt-1">
     <thead>
       <tr>
         <th scope="col">Name</th>
@@ -21,7 +29,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let country of filteredCountries">
+      <tr *ngFor="let country of filteredCountries |  paginate: { id: 'foo',
+      itemsPerPage: pageSize,
+      currentPage: page,
+      totalItems: collectionSize }">
         <td>{{country.name}}</td>
         <td>{{country.capital}}</td>
         <td>{{country.region}}</td>
@@ -30,4 +41,17 @@
       </tr>
     </tbody>
   </table>
+  <div class="d-flex justify-content-end">
+  <pagination-controls id="foo" (pageChange)="page = $event"></pagination-controls>
+  </div>
+</div>
+  <!-- <nav class="d-flex justify-content-end">
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul>
+  </nav> -->
 </div>
