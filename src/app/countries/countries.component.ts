@@ -39,9 +39,14 @@ export class CountriesComponent implements OnInit {
   }
 
   filterCountriesByRegions(region: string[]) {
-    this.filteredCountries = this.countries.filter(country => {
-      return region.some(reg => country.region === reg);
-    });
+    if (region.length > 0) {
+      this.filteredCountries = this.countries.filter(country => {
+        return region.some(reg => country.region === reg);
+      });
+    }
+    else {
+      this.filteredCountries = this.countries;
+    }
     this.collectionSize = this.filteredCountries.length;
     this.page = 1;
   }
